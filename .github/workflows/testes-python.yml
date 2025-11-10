@@ -1,0 +1,26 @@
+name: Testes Python
+
+on: [push, pull_request]
+
+jobs:
+  testar:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Fazer checkout do código
+      uses: actions/checkout@v3
+    
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Instalar dependências
+      run: |
+        pip install -r requirements.txt
+        pip install pytest
+    
+    - name: Executar testes
+      run: |
+        cd src
+        python -m pytest test_task_manager.py -v
